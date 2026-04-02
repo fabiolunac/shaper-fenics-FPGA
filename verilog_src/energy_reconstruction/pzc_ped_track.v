@@ -19,7 +19,9 @@ module pzc_ped_track
 	//Pedestal compensation
 	output reg signed [NBITS_IN  -1:0] pedestal = 0,
 	//PZC output
-	output signed    [NBITS_OUT -1:0] io_out
+	output signed    [NBITS_OUT -1:0] io_out,
+	//PZC output 12b
+	output signed [11:0] io_out_12b
 );
 
 reg enable_acc_corr = 1'd1; //Enable the accumulator correction
@@ -217,6 +219,8 @@ end
 
 //PZC output
 assign io_out = (in - pedestal) + out_delay + M_FACTOR * (in - pedestal);
+
+assign io_out_12b = io_out >>> 17;
 
 
 endmodule
