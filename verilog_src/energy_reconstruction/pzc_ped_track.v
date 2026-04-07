@@ -1,13 +1,15 @@
 // PZC with the pedestal tracking and accumulator correction
 module pzc_ped_track
 #(
-	parameter NBITS_IN  = 12,          // Bits of the input signal
-	parameter NBITS_OUT = 28,          // Bits of the pzc output
-	parameter M_FACTOR  = 454,         // M factor of the PZC
-	parameter K_CORR = 2**4,			  // Defines how many negative values will enter before corrects the accumulator
-	parameter PED_CORR = 13,			  // Defines when to check if the pedestal compensation will be checked
-	//parameter PED_CORR = 2**4,		  // Defines when to check if the pedestal compensation will be checked
-	parameter BT_NUM = 16              // Number of bt masks zeros to identify the long gap
+	parameter NBITS_IN  = 12,           // Bits of the input signal
+	parameter NBITS_OUT = 28,           // Bits of the pzc output
+	parameter M_FACTOR  = 454,          // M factor of the PZC
+	parameter K_CORR = 2**4,		    // Defines how many negative values will enter before corrects the accumulator
+	parameter PED_CORR = 13,		    // Defines when to check if the pedestal compensation will be checked
+	//parameter PED_CORR = 2**4,    	// Defines when to check if the pedestal compensation will be checked
+	parameter BT_NUM = 16,              // Number of bt masks zeros to identify the long gap
+	parameter SHIFT_PZC = 9,             // Shift to convert PZC to 13 bits
+	parameter NBITS_SUM = 28
 )
 (
 	//Clock and reset signals
@@ -19,10 +21,13 @@ module pzc_ped_track
 	//Pedestal compensation
 	output reg signed [NBITS_IN  -1:0] pedestal = 0,
 	//PZC output
-	output signed    [NBITS_OUT -1:0] io_out,
-	//PZC output 12b
-	output signed [11:0] io_out_12b
+//	output signed    [NBITS_OUT -1:0] io_out,
+	//PZC output 13b
+	output signed [NBITS_IN:0] io_out_13b
 );
+
+// io_out used as register now, to avoid bit erro
+wire signed    [NBITS_SUM -1:0] io_out;
 
 reg enable_acc_corr = 1'd1; //Enable the accumulator correction
 reg enable_ped = 1'd1;      //Enable the pedestal compensation correction 
@@ -220,7 +225,7 @@ end
 //PZC output
 assign io_out = (in - pedestal) + out_delay + M_FACTOR * (in - pedestal);
 
-assign io_out_12b = io_out >>> 17;
-
+//PZC 13 bits output
+assign io_out_13b = io_out >>> SHIFT_PZC;
 
 endmodule

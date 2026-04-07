@@ -67,7 +67,7 @@ pzc_ped_track
 	.bt_mask_out(bt_mask),
 	.in({1'd0,cal_readout}),
 	.pedestal(pedestal_out),
-	.io_out(pzc_out)
+	.io_out_13b(pzc_out)
 );
 
 

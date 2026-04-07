@@ -23,7 +23,8 @@ module Pulse_Simulator_FPGA_v2
     parameter MEM_NOISE0_THRESH = 1007,       //Threshold position of the first memory of the noise generator
     parameter MEM_NOISE1_THRESH = 1007,       //Threshold position of the second memory of the noise generator
     parameter PZC_M_FACTOR = 454,       //M factor of the PZC
-    parameter PZC_OUT_BITS = CLIP_OUT_BITS+1+16, //Bits of the PZC output
+//    parameter PZC_OUT_BITS = CLIP_OUT_BITS+1+16, //Bits of the PZC output
+    parameter PZC_OUT_BITS = CLIP_OUT_BITS+1, //New Bits of the PZC output (13)
     parameter WIENER_NORMAL_OUT_BITS = CLIP_OUT_BITS + 21, //Bits of the Wiener filter outuput
     parameter WIENER_PZC_OUT_BITS = PZC_OUT_BITS + 15 + 17,     //Bits of the PZC+Wiener filter output
     //parameter WIENER_PZC_OUT_BITS = CLIP_OUT_BITS + 21,     //Bits of the PZC+Wiener filter output
@@ -95,7 +96,7 @@ always@(posedge clk_40) begin
     wiener_normal_out_reg <= wiener_normal_out;
     pedestal_out_reg <= pedestal_out;
     event_bt_reg <= event_bt;
-    pzc_out_12b_reg <= pzc_out_12b;
+//    pzc_out_12b_reg <= pzc_out_12b;
 //    pzc_out_12b_div_reg <= pzc_out_12b_div;  
 end
 
@@ -116,15 +117,9 @@ end
 (* KEEP = "true" *) reg signed [CLIP_OUT_BITS+1-1:0] pedestal_out_reg;
 
 //12 bits PZC
-(* KEEP = "true" *) reg signed  [11:0] pzc_out_12b_reg;
-(* KEEP = "true" *) wire signed [11:0] pzc_out_12b;
-// 12 bits divisor test
-//(* KEEP = "true" *) wire signed [11:0] pzc_out_12b_div;
-//(* KEEP = "true" *) reg signed  [11:0] pzc_out_12b_div_reg;
+//(* KEEP = "true" *) reg signed  [12:0] pzc_out_12b_reg;
+//(* KEEP = "true" *) wire signed [12:0] pzc_out_12b;
 
-assign pzc_out_12b = pzc_out >>> 9;
-
-//assign pzc_out_12b_div = pzc_out/(PZC_M_FACTOR+1);
 
 //wire [WIENER_PZC_OUT_BITS-1:0] sum = bt_mask_out + event_bt + adc_out + pzc_out + wiener_normal_out + wiener_pzc_out + pedestal_out;
 
@@ -225,7 +220,7 @@ Energy_Reconstruction
 	//.WIENER_NORMAL_OUT_BITS(WIENER_NORMAL_OUT_BITS), //Bits of the Wiener filter outuput
 	.WIENER_PZC_OUT_BITS(WIENER_PZC_OUT_BITS),      //Bits of the PZC+Wiener filter output
 	//.WIENER_PZC_OUT_BITS(CLIP_OUT_BITS + 21),      //Bits of the PZC+Wiener filter output
-    .PZC_OUT_BITS(CLIP_OUT_BITS+1+16), //Bits of the PZC output
+    .PZC_OUT_BITS(PZC_OUT_BITS), //Bits of the PZC output
     //.WEIGHTS_WIENER_ONLY_FILE(WEIGHTS_WIENER_ONLY_FILE),   // Name of the file containing weights of wiener filter without pzc
     .WEIGHTS_WIENER_PZC_FILE(WEIGHTS_WIENER_PZC_FILE)     // Name of the file containing weights of wiener filter with pzc
 ) eng_rec
