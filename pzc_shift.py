@@ -13,15 +13,16 @@ def twos_complement_to_int(bits):
 
 
 def main():
-    arquivo = Path(__file__).with_name("pzc_comparison.txt")
+    bits = 13
+    arquivo = Path(__file__).with_name(f"pzc_comparison_{bits}b.txt")
 
     with arquivo.open("r", encoding="utf-8") as f:
         linhas = [linha.strip().split() for linha in f if linha.strip()]
 
-    pzc_out, adc_out = [], [], []
+    pzc_out, adc_out = [], []
 
     for linha in linhas[1:]:
-        if len(linha) != 3:
+        if len(linha) != 2:
             continue
 
         pzc, adc = linha
@@ -32,6 +33,10 @@ def main():
     adc_out = np.array(adc_out)
 
     erro = adc_out - pzc_out
+
+    e_rms = np.sqrt(np.mean(erro**2))
+
+    print(f'Erro RMS: {e_rms:.2f}')
 
     if False:
         fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=True)
@@ -61,7 +66,7 @@ def main():
         ax1.set_ylabel("Valor")
 
         ax3.plot(pzc_out)
-        ax3.set_title("PZC 13b output")
+        ax3.set_title(f"PZC {bits}b output")
         ax3.set_xlabel("Amostra")
         ax3.set_ylabel("Valor")
 
@@ -72,12 +77,12 @@ def main():
         fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 
         ax1.plot(adc_out, label='Shaper Output')
-        ax1.plot(pzc_out, label='PZC 13 bits')
+        ax1.plot(pzc_out, label=f'PZC {bits} bits')
         ax1.legend()
         ax1.set_title('Signal Comparison')
 
-        ax2.plot(erro)
-        ax2.set_title('Error')
+        # ax2.plot(erro)
+        # ax2.set_title('Error')
         
 
         # plt.show
