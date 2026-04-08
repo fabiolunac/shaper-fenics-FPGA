@@ -1,6 +1,0 @@
-# compile verilog/system verilog design source files
-verilog xil_defaultlib  --include "../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef" --include "../../../../../Pulse_Simulator_FPGA_v2.ip_user_files/ipstatic" --include "C:/Xilinx/2025.1/Vivado/data/xilinx_vip/include" \
-"Pulse_Simulator_FPGA_v2_func_synth.v" \
-
-# Do not sort compile order
-nosort
