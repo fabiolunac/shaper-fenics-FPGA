@@ -23,14 +23,14 @@ module Pulse_Simulator_FPGA_v2
     parameter MEM_NOISE0_THRESH = 1007,       //Threshold position of the first memory of the noise generator
     parameter MEM_NOISE1_THRESH = 1007,       //Threshold position of the second memory of the noise generator
     parameter PZC_M_FACTOR = 454,       //M factor of the PZC
-    parameter PZC_OUT_BITS = CLIP_OUT_BITS+1+16, //Bits of the PZC output
-//    parameter PZC_OUT_BITS = CLIP_OUT_BITS+1, //New Bits of the PZC output (13)
+//    parameter PZC_OUT_BITS = CLIP_OUT_BITS+1+16, //Bits of the PZC output
+    parameter PZC_OUT_BITS = CLIP_OUT_BITS+1, //New Bits of the PZC output (13)
     parameter WIENER_NORMAL_OUT_BITS = CLIP_OUT_BITS + 21, //Bits of the Wiener filter outuput
     parameter WIENER_PZC_OUT_BITS = PZC_OUT_BITS + 15 + 17,     //Bits of the PZC+Wiener filter output
     //parameter WIENER_PZC_OUT_BITS = CLIP_OUT_BITS + 21,     //Bits of the PZC+Wiener filter output
     parameter WEIGHTS_WIENER_ONLY_FILE = "weight_ls_normal_a13.mif",   // Name of the file containing weights of wiener filter without pzc
     parameter WEIGHTS_WIENER_PZC_FILE = "weight_ls_pzc_a13.mif",     // Name of the file containing weights of wiener filter with pzc
-    parameter SHIFT_PZC = 0 //Bit number to obtain 13b for PZC
+    parameter SHIFT_PZC = 9 //Bit number to obtain 13b for PZC
 )
 (
 	//////////// CLOCK //////////
