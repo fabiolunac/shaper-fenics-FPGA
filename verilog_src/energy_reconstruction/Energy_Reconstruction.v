@@ -25,7 +25,7 @@ module Energy_Reconstruction
     parameter ENG_OUT_BITS = 13, //Bits of the energy generator output
     parameter CLIP_OUT_BITS = ENG_OUT_BITS-1, //Bits of the ADC output
     parameter PZC_M_FACTOR = 454,       //M factor of the PZC
-	parameter PZC_OUT_BITS = CLIP_OUT_BITS+1+16, //Bits of the PZC output
+	parameter PZC_OUT_BITS = CLIP_OUT_BITS+1, //Bits of the PZC output
 	parameter WIENER_PZC_OUT_BITS = PZC_OUT_BITS + 15,     //Bits of the PZC+Wiener filter output
     parameter WEIGHTS_WIENER_PZC_FILE = "weight_ls_pzc_d2.mif",     // Name of the file containing weights of wiener filter with pzc
     parameter SHIFT_PZC = 9
