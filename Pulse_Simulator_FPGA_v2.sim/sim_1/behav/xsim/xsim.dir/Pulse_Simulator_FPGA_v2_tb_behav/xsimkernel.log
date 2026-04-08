@@ -1,0 +1,4 @@
+Running: xsim.dir/Pulse_Simulator_FPGA_v2_tb_behav/xsimk.exe -simmode gui -wdb Pulse_Simulator_FPGA_v2_tb_behav.wdb -simrunnum 0 -socket 62976
+Design successfully loaded
+Design Loading Memory Usage: 8968 KB (Peak: 8968 KB)
+Design Loading CPU Usage: 93 ms

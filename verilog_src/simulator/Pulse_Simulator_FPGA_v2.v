@@ -97,7 +97,7 @@ always@(posedge clk_40) begin
     wiener_normal_out_reg <= wiener_normal_out;
     pedestal_out_reg <= pedestal_out;
     event_bt_reg <= event_bt;
-//    pzc_out_12b_reg <= pzc_out_12b;
+    pzc_out_13b_reg <= pzc_out_13b;
 //    pzc_out_12b_div_reg <= pzc_out_12b_div;  
 end
 
@@ -117,12 +117,13 @@ end
 (* KEEP = "true" *) wire signed [CLIP_OUT_BITS+1-1:0] pedestal_out;
 (* KEEP = "true" *) reg signed [CLIP_OUT_BITS+1-1:0] pedestal_out_reg;
 
-//12 bits PZC
-//(* KEEP = "true" *) reg signed  [12:0] pzc_out_12b_div_reg;
-//(* KEEP = "true" *) wire signed [12:0] pzc_out_12b_div;
+//13 bits PZC
+(* KEEP = "true" *) reg signed  [12:0] pzc_out_13b_reg;
+(* KEEP = "true" *) wire signed [12:0] pzc_out_13b;
 
 //assign pzc_out_12b_div = pzc_out/(PZC_M_FACTOR+1);
 
+assign pzc_out_13b = pzc_out >>> 9;
 
 //wire [WIENER_PZC_OUT_BITS-1:0] sum = bt_mask_out + event_bt + adc_out + pzc_out + wiener_normal_out + wiener_pzc_out + pedestal_out;
 

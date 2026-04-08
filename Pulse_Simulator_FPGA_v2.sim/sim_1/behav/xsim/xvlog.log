@@ -17,6 +17,7 @@ WARNING: [VRFC 10-3380] identifier 'pzc_out_reg' is used before its declaration 
 WARNING: [VRFC 10-3380] identifier 'wiener_normal_out_reg' is used before its declaration [C:/Users/tmdb/Documents/shaper-fenics-FPGA/verilog_src/simulator/Pulse_Simulator_FPGA_v2.v:97]
 WARNING: [VRFC 10-3380] identifier 'pedestal_out_reg' is used before its declaration [C:/Users/tmdb/Documents/shaper-fenics-FPGA/verilog_src/simulator/Pulse_Simulator_FPGA_v2.v:98]
 WARNING: [VRFC 10-3380] identifier 'event_bt_reg' is used before its declaration [C:/Users/tmdb/Documents/shaper-fenics-FPGA/verilog_src/simulator/Pulse_Simulator_FPGA_v2.v:99]
+WARNING: [VRFC 10-3380] identifier 'pzc_out_13b_reg' is used before its declaration [C:/Users/tmdb/Documents/shaper-fenics-FPGA/verilog_src/simulator/Pulse_Simulator_FPGA_v2.v:100]
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/tmdb/Documents/shaper-fenics-FPGA/verilog_src/simulator/bunch_train_mask.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module bunch_train_mask
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/tmdb/Documents/shaper-fenics-FPGA/verilog_src/simulator/clip_shaper.v" into library xil_defaultlib
