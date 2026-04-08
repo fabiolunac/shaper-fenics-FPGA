@@ -23,10 +23,10 @@ module pzc_ped_track
 	//PZC output
 //	output signed    [NBITS_OUT -1:0] io_out,
 	//PZC output 13b
-	output signed [NBITS_IN:0] io_out_13b
+	output signed [NBITS_OUT-1:0] pzc_out
 );
 
-// io_out used as register now, to avoid bit erro
+// io_out used as wire now, to avoid bit error
 wire signed    [NBITS_SUM -1:0] io_out;
 
 reg enable_acc_corr = 1'd1; //Enable the accumulator correction
@@ -226,6 +226,6 @@ end
 assign io_out = (in - pedestal) + out_delay + M_FACTOR * (in - pedestal);
 
 //PZC 13 bits output
-assign io_out_13b = io_out >>> SHIFT_PZC;
+assign pzc_out = io_out >>> SHIFT_PZC;
 
 endmodule

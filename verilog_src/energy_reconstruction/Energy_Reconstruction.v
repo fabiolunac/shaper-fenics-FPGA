@@ -27,7 +27,8 @@ module Energy_Reconstruction
     parameter PZC_M_FACTOR = 454,       //M factor of the PZC
 	parameter PZC_OUT_BITS = CLIP_OUT_BITS+1+16, //Bits of the PZC output
 	parameter WIENER_PZC_OUT_BITS = PZC_OUT_BITS + 15,     //Bits of the PZC+Wiener filter output
-    parameter WEIGHTS_WIENER_PZC_FILE = "weight_ls_pzc_d2.mif"     // Name of the file containing weights of wiener filter with pzc
+    parameter WEIGHTS_WIENER_PZC_FILE = "weight_ls_pzc_d2.mif",     // Name of the file containing weights of wiener filter with pzc
+    parameter SHIFT_PZC = 9
 )
 (
     ////// INPUTS
@@ -58,7 +59,8 @@ pzc_ped_track
 #(
 	.NBITS_IN(CLIP_OUT_BITS+1),          // Numero de bits de dados
 	.NBITS_OUT(PZC_OUT_BITS),          // Numero de bits de dados de saida
-	.M_FACTOR(PZC_M_FACTOR)//,         // Fator M do PZC
+	.M_FACTOR(PZC_M_FACTOR),//,         // Fator M do PZC
+	.SHIFT_PZC(SHIFT_PZC)
 	//.K_CORR(2**4)				  // Quando vai corrigir a saida
 )pzc_zero
 (
@@ -67,12 +69,12 @@ pzc_ped_track
 	.bt_mask_out(bt_mask),
 	.in({1'd0,cal_readout}),
 	.pedestal(pedestal_out),
-	.io_out_13b(pzc_out)
+	.pzc_out(pzc_out)
 );
 
 
 
-wire signed [12:0] pzc_out_div = pzc_out/(455);
+//wire signed [12:0] pzc_out_div = pzc_out/(455);
 
 
 //////////   PZC + WIENER   ////////
