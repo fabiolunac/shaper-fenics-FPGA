@@ -33,28 +33,28 @@ reg enable_acc_corr = 1'd1; //Enable the accumulator correction
 reg enable_ped = 1'd1;      //Enable the pedestal compensation correction 
 reg enable_diverge = 1'd1;  //Flag to define if diverges
 
-reg signed [NBITS_OUT -1:0] out_delay = 0;// accumulator;
+reg signed [NBITS_SUM -1:0] out_delay = 0;// accumulator;
 
 reg [20:0] cont1 = 0;  // number of negative samples
 reg [20:0] cont2 = 0;  // number of postitive samples
 reg [20:0] cont_bt = 0;// number of zero samples of the bunch train pattern mask
 
 
-reg signed [NBITS_OUT+K_CORR - 1:0] soma = 0;       //sum of positive values
-reg signed [NBITS_OUT+PED_CORR- 1:0] soma2 = 0;     //sum of values to correct the accumulator of pedestal compensation
-reg signed [NBITS_OUT -1:0] m_out = 0;              //accumulator correction for negative values
+reg signed [NBITS_SUM+K_CORR - 1:0] soma = 0;       //sum of positive values
+reg signed [NBITS_SUM+PED_CORR- 1:0] soma2 = 0;     //sum of values to correct the accumulator of pedestal compensation
+reg signed [NBITS_SUM -1:0] m_out = 0;              //accumulator correction for negative values
 //********I THINK IT IS NOT USED ANYMORE*****
-reg signed [NBITS_OUT -1:0] ped_reg_out = 0;        //Value to corrects the accumulator when the pedestal compensation changes
+reg signed [NBITS_SUM -1:0] ped_reg_out = 0;        //Value to corrects the accumulator when the pedestal compensation changes
 //*******************************************
-reg signed [NBITS_OUT -1:0] ped_reg_out_corr = 0;   //Value to corrects the accumulator when the pedestal compensation changes
-reg signed [NBITS_OUT -1:0] io_out_delay = 0;       //save the previous output
+reg signed [NBITS_SUM -1:0] ped_reg_out_corr = 0;   //Value to corrects the accumulator when the pedestal compensation changes
+reg signed [NBITS_SUM -1:0] io_out_delay = 0;       //save the previous output
 //Signals used to check if there is a ramp at the PZC output
-reg signed [NBITS_OUT -1:0] first_sample = 0;       //First sample in the long gap
-reg signed [NBITS_OUT+6 -1:0] diff_last = 0;        //Difference between future and first sample of long gap
+reg signed [NBITS_SUM -1:0] first_sample = 0;       //First sample in the long gap
+reg signed [NBITS_SUM+6 -1:0] diff_last = 0;        //Difference between future and first sample of long gap
 
 
 //********I THINK IT IS NOT USED ANYMORE*****
-wire [NBITS_OUT-1:0] diff;
+wire [NBITS_SUM-1:0] diff;
 assign diff = (cont_bt > BT_NUM) ? io_out - io_out_delay : 0;
 //*******************************************
 
